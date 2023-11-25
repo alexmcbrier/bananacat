@@ -1,0 +1,180 @@
+* {
+    font-family: 'lexendDeca';
+    color: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: pink;
+}
+
+header {
+    background-color: #333;
+}
+a {
+    text-decoration: none;
+}
+#title {
+    font-size: 10vw;
+    color: white;
+}
+.subtitle {
+    font-size: 4vw;
+    color: white;
+    padding: 2vw;
+}
+.chatTitle {
+    padding-top: 11vw;
+    padding-left: 5vw;
+}
+#loginContent {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+#displayStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.statsContainer {
+    user-select: none;
+    background-color: rgb(233, 168, 179);
+    font-size: 1.5rem;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin: 1rem;
+    max-width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.optionsHeader {
+    font-size: 1.8rem;
+    margin: 1rem 0;
+    text-decoration: none;
+}
+
+.options {
+    width: 100%;
+    height: auto;
+}
+
+.chat-container {
+    max-width: 600px;
+    padding: 20px;
+    padding-top: 10vw;
+}
+
+#chat-box {
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.input-container {
+    display: flex;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: 'lexendDeca';
+    src: url('LexendDeca.ttf');
+}
+
+.chat-container {
+    overflow: hidden;
+    width: 95%;
+    margin-bottom: 5%;
+    height: 90%;
+    border: none;
+}
+
+#chat-box {
+    height: 100%;
+    overflow-y: auto;
+    color: #fff;
+    padding-left: 5%;
+    padding-top: 10%;
+    word-wrap: break-word;
+    width: 80%;
+    font-size: 4vw;
+}
+
+.input-container {
+    position: fixed;
+    bottom: 15%;
+    width: 95%;
+    display: flex;
+    border-radius: 2vh;
+}
+#back {
+    position: fixed;
+    bottom: 5%;
+    border-radius: 2vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#user-input {
+    flex: 1;
+    padding: 5%;
+    border: none;
+    margin-right: 1%;
+    border-radius: 2vh;
+    color: rgb(79, 79, 79);
+    font-size: 4vw;
+    margin-right: 8vw;
+}
+#preview img {
+    max-width: 100%;
+    max-height: 300px;
+    margin-top: 20px;
+}

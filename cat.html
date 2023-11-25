@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="a website for my girlfriend vivien"/>
+        <meta name="author" content="alex mcbrier">
+        <title>bananacat</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- 
+            HOME PAGE DETAILS
+            -----------------
+            1. A title with logo at the top
+            2. Choose either alex or vivien
+            3. A navigation bar to home, text chat, and photo gallery
+            4. A gallery view, where you can choose different options
+        -->
+        <div id = "loginContent">
+            <h1 id = "title">bananacat</h1>
+            <div class = "subtitle">YAYYY i luvvv uuu two!!! pls give me melk MAOOOOOOOOO</div>
+            <div id="displayStats">
+                <a id = "thanku" class="statsContainer" onclick="sendMessage(' just scratched my tummy WOOHHHHH - cat')">
+                    <h1 id = "tuck"class="optionsHeader">scratch tummy</h1>
+                    <img class="options" src="black-cat.png" alt="banana">
+                </a>
+                <a class="statsContainer" onclick="sendMessage(' is listening to me purr!!! maooooooooo - cat')">
+                    <h1 class="optionsHeader">listen to cat purr</h1>
+                    <img class="options" src="cat.png" alt="cat">
+                </a>
+                <a class="statsContainer"  onclick="sendMessage(' just gave me so much melkkk ohmaagaahhhh - cat')">
+                    <h1 class="optionsHeader">drink melk</h1>
+                    <img class="options" src="black-cat-2.png" alt="cat">
+                </a>
+            </div>
+        </div>
+        <script>
+            function sendMessage(msg) {
+                const message = msg;
+                const gistId = '389ee3930524788f78bbf8802d5a5eac';
+                const githubToken = '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'; // Replace with your GitHub Personal Access Token
+    
+                // Get the current content
+                fetch(`https://api.github.com/gists/${gistId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `token ${githubToken}`
+                    },
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to get current content. Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const content = data.files['chat.txt'].content;
+                        const newContent = content + `\n\nomgg!, ${name} ${message}`;
+    
+                        // Update the Gist with the new content
+                        return fetch(`https://api.github.com/gists/${gistId}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `token ${githubToken}`
+                            },
+                            body: JSON.stringify({
+                                files: {
+                                    'chat.txt': {
+                                        content: newContent,
+                                    },
+                                },
+                            }),
+                        });
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to update chat. Status: ${response.status}`);
+                        }
+                    })
+                    .then(() => {
+                        // After updating, load the chat again
+                        loadChat();
+                        userInput.value = '';
+                    })
+                    .catch(error => console.error('Error updating chat:', error));
+                    function delayedAction() {
+                        window.location = "thanku.html";
+                    }
+
+                    // Set a timeout for 2 seconds (2000 milliseconds)
+                    setTimeout(delayedAction, 250);
+            }
+    
+            function handleKeyPress(event) {
+                // Check if the pressed key is Enter (keyCode 13)
+                if (event.keyCode === 13) {
+                    // Prevent the default behavior of the Enter key (form submission)
+                    event.preventDefault();
+                    // Call the sendMessage function when Enter is pressed
+                    sendMessage();
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="a website for my girlfriend vivien"/>
+        <meta name="author" content="alex mcbrier">
+        <title>bananacat</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- 
+            HOME PAGE DETAILS
+            -----------------
+            1. A title with logo at the top
+            2. Choose either alex or vivien
+            3. A navigation bar to home, text chat, and photo gallery
+            4. A gallery view, where you can choose different options
+        -->
+        <div id = "loginContent">
+            <h1 id = "title">bananacat</h1>
+            <div class = "subtitle">a cute game made for alex and vivien ⟡⋆♡⋆⟡</div>
+            <div id="displayStats">
+                <a class="statsContainer" onclick="alex()" href="choosePet.html">
+                    <h1 class="optionsHeader">alex</h1>
+                    <img class="options" src="alex.png" alt="banana">
+                </a>
+                <a class="statsContainer" onclick="vivien()" href="choosePet.html">
+                    <h1 class="optionsHeader">vivien</h1>
+                    <img class="options" src="vivien.png" alt="cat">
+                </a>
+            </div>
+        </div>
+        <script>
+            function alex() {
+                name = "alex";
+            }
+            function vivien() {
+                name = "vivien";
+            }
+        </script>
+    </body>
+</html>

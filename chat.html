@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Chat Page</title>
+</head>
+
+<body>
+    <div id = "loginContent"></div>
+        <h1 class = "chatTitle" id="title" href="index.html">bananacat</h1>
+        <div class="chat-container">
+            <div id="chat-box"></div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type your message to pookie" onkeypress="handleKeyPress(event)">
+            </div>
+        </div>
+        <a id="back" href="index.html">back</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            loadChat();
+        });
+
+        function loadChat() {
+            const chatBox = document.getElementById('chat-box');
+            const gistId = '389ee3930524788f78bbf8802d5a5eac';
+            const githubToken = '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'; // Replace with your GitHub Personal Access Token
+
+            fetch(`https://api.github.com/gists/${gistId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `token ${githubToken}`
+                },
+            })
+                .then(response => {
+                    // Check if the response is successful
+                    if (!response.ok) {
+                        // Check for rate limit exceeded
+                        if (response.status === 403) {
+                            const rateLimitReset = response.headers.get('X-RateLimit-Reset');
+                            console.error(`Rate limit exceeded. Try again after ${new Date(rateLimitReset * 1000)}`);
+                        } else {
+                            throw new Error(`Failed to load chat. Status: ${response.status}`);
+                        }
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const content = data.files['chat.txt'].content;
+                    const formattedContent = content.replace(/\n/g, '<br>');
+                    chatBox.innerHTML = formattedContent;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(error => console.error('Error loading chat:', error));
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            const gistId = '389ee3930524788f78bbf8802d5a5eac';
+            const githubToken = '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'; // Replace with your GitHub Personal Access Token
+
+            // Get the current content
+            fetch(`https://api.github.com/gists/${gistId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `token ${githubToken}`
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to get current content. Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const content = data.files['chat.txt'].content;
+                    const newContent = content + `\n\n${name}: ${message}`;
+
+                    // Update the Gist with the new content
+                    return fetch(`https://api.github.com/gists/${gistId}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `token ${githubToken}`
+                        },
+                        body: JSON.stringify({
+                            files: {
+                                'chat.txt': {
+                                    content: newContent,
+                                },
+                            },
+                        }),
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to update chat. Status: ${response.status}`);
+                    }
+                })
+                .then(() => {
+                    // After updating, load the chat again
+                    loadChat();
+                    userInput.value = '';
+                })
+                .catch(error => console.error('Error updating chat:', error));
+        }
+
+        function handleKeyPress(event) {
+            // Check if the pressed key is Enter (keyCode 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key (form submission)
+                event.preventDefault();
+                // Call the sendMessage function when Enter is pressed
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+
+</html>
