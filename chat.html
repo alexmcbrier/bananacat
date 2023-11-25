@@ -20,16 +20,17 @@
         </div>
         <a id="back" href="index.html">back</a>
     </div>
-    <script>
+    <script type = "module">
         document.addEventListener('DOMContentLoaded', function () {
             loadChat();
         });
+        import config from './config.js';
 
+        const githubToken = config.githubToken;
         function loadChat() {
             const chatBox = document.getElementById('chat-box');
             const gistId = '389ee3930524788f78bbf8802d5a5eac';
-            const githubToken = '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'; // Replace with your GitHub Personal Access Token
-
+           
             fetch(`https://api.github.com/gists/${gistId}`, {
                 method: 'GET',
                 headers: {
@@ -58,11 +59,10 @@
                 .catch(error => console.error('Error loading chat:', error));
         }
 
-        function sendMessage() {
+        window.sendMessage = function(msg) {
             const userInput = document.getElementById('user-input');
             const message = userInput.value.trim();
             const gistId = '389ee3930524788f78bbf8802d5a5eac';
-            const githubToken = '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'; // Replace with your GitHub Personal Access Token
 
             // Get the current content
             fetch(`https://api.github.com/gists/${gistId}`, {
@@ -109,8 +109,7 @@
                 })
                 .catch(error => console.error('Error updating chat:', error));
         }
-
-        function handleKeyPress(event) {
+        window.handleKeyPress = function(event) {
             // Check if the pressed key is Enter (keyCode 13)
             if (event.keyCode === 13) {
                 // Prevent the default behavior of the Enter key (form submission)

@@ -38,11 +38,17 @@
                 </a>
             </div>
         </div>
-        <script>
-            function sendMessage(msg) {
+        <script type="module">
+            // Import config.js using CommonJS syntax
+            // Import config.js using ESM syntax
+            import config from './config.js';
+
+            // Use the token from the configuration file
+            const githubToken = config.githubToken;
+            // Define sendMessage function
+            window.sendMessage = function(msg) {
                 const message = msg;
                 const gistId = '389ee3930524788f78bbf8802d5a5eac';
-                const githubToken = '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'; // Replace with your GitHub Personal Access Token
     
                 // Get the current content
                 fetch(`https://api.github.com/gists/${gistId}`, {
